@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #f3f3f3;
+}
+#app {
+    background: #fff;
+}
+.m-content-box {
+    border-top: 1px solid #e4e4e4;
+    padding: 10px 0 10px 20px;
+    line-height: 25px;
+    position: relative;
+}
+.m-content-left {
+    display: flex;
+}
+.m-content-index {
+    background: #0771e2;
+    font-size: 13px;
+    color: #fff;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    margin-right: 15px;
+}
+.m-content-btn {
+
+}
+.m-content-btn {
+    display: block;
+    position: relative;
+    font-size: 0;
+    width: 25px;
+    height: 48px;
+    border: none;
+    cursor: pointer;
+}
+.m-content-btn:focus {
+    outline: none;
+}
+.m-content-btn {
+    display: block;
+    position: absolute;
+    height: 2px;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    background-color: #d8d7d7;
+}
+.m-content-btn:before,
+.m-content-btn:after {/*before和after与span重合，需要进行上移和下移*/
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #d8d7d7;
+}
+.m-content-btn:before {
+    top: -8px;/*相对于中间的span上移10px*/
+}
+.m-content-btn:after {
+    bottom: -8px;/*相对于中间的span下移10px*/
+}
+.m-content-box.light {
+    background: #0771e2;
+    box-shadow: 0px 0px 7px #7b7b7b;
+    z-index: 1000;
+}
+.m-content-box.light .m-content-index {
+    background: #fff;
+    color: #0771e2;
+}
+.dark .m-content-index {
+    background: #999
+}
+.dark .m-content-btn {
+    display: none;
+}
+.m-content-box {
+  position: absolute;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+

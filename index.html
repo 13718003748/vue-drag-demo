@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    .flip-list-move {
+      transition: transform 0.5s;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="wrapper">
+      <transition-group name="flip-list">
+        <div class="m-content-box" v-for="(item, index) in contentArr" 
+            :key="item"
+            :class="[{dark: dark == 'dark'}, {light: light == item}]" 
+            @touchstart="touchstart($event, item)"
+            @touchend="touchend" @touchmove="touchmove($event, item, index)"
+            :style="{top: (itemName == item ? pageY : (index * 46)) + 'px', transition: (isRemove ? '0s' : '0.3s')}"
+        >
+          <div class="m-content-left">
+            <div class="m-content-index">{{index + 1}}</div>
+            <div class="m-content">{{item}}</div>
+          </div>
+          <div class="m-content-btn"></div>
+        </div>
+      </transition-group>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        contentArr: ['选项A', '选项B', '选项C', '选项D'],
+        light: '',
+        dark: '',
+        itemName: '',
+        pageY: 0,
+        isRemove: false
+      },
+      methods: {
+        touchstart($event, item) {
+          this.heighLight(item)
+        },
+        touchmove($, item, index) {
+          this.changePageY($, item, index)
+        },
+        touchend() {
+          this.changeHeightLight()
+          this.listSort()
+        },
+        heighLight(item) {
+          this.light = item
+          this.dark = 'dark'
+        },
+        changeHeightLight() {
+          this.light = ''
+          this.dark = ''
+        },
+        changePageY($, item, i) {
+          this.itemName = item
+          this.isRemove = true
+          this.pageY = $.targetTouches[0].pageY - 23
+          if (this.pageY < (46 * i - 23) && i > 0) {
+            let tempOption = this.contentArr[i - 1]
+            this.contentArr[i] = tempOption
+            this.contentArr[i - 1] = item
+          } else if (this.pageY > (46 * i + 23) && i < this.contentArr.length - 1) {
+            let tempOption = this.contentArr[i + 1]
+            this.contentArr[i] = tempOption
+            this.contentArr[i + 1] = item
+          }
+        },
+        listSort() {
+          this.itemName = ''
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
